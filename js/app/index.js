@@ -6,10 +6,10 @@ const NumIs = require('https://raw.githubusercontent.com/Konkery/ModuleAppMath/m
 let I2Cbus = new ClassI2CBus();
 let bus = I2Cbus.AddBus({sda: B9, scl: B8, bitrate: 400000}).IDbus;
 
-const Lps = require("ClassLPS331");
+const Lps = require("ClassLPS25HB");
 let opts = {pins: [B9, B8], bus: bus, address: 0x5C, quantityChannel: 2};
 let sensor_props = {
-    name: "LPS331",
+    name: "LPS25HB",
     type: "sensor",
     channelNames: ['temperature', 'pressure'],
     typeInSignal: "analog",
@@ -27,7 +27,7 @@ let sensor_props = {
                 "GimmeModule": "BB553"
             }
         ],
-        HelpSens: "LPS331 pressure sensor"
+        HelpSens: "LPS25HB pressure sensor"
     }
 };
 let baro = new Lps(opts, sensor_props);
