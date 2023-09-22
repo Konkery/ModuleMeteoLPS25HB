@@ -1,7 +1,8 @@
 const ClassMiddleSensor = require("ClassSensorArchitecture");
 /**
  * @class
- * TODO:
+ * Модуль реализует базовые функции метеодатчика на базе чипа LPS25HB,
+ * возращающего данные о температуре и атмосферном давлении
  */
 class ClassLPS25HB extends ClassMiddleSensor {
     /**
