@@ -35,15 +35,14 @@ var Barometer = function(opts) {
   // Pressure
   Barometer.prototype.pressure = function() {
     var data = this.readI2C(0x28, 3);
-    var ret = {};
-    ret.baro = (data[1] << 8) | (data[2] << 16) || data[0];
-    if (ret.baro > 2147483647) {
-      ret.baro -= 0xffffffff;
+    var baro;
+    baro = (data[1] << 8) | (data[2] << 16) || data[0];
+    if (baro > 2147483647) {
+      baro -= 0xffffffff;
     }
-    ret.baro /= 40960;
-    ret.altim = this.altitude(ret.baro * 1000);
-    
-    return ret;
+    baro /= 40960;
+        
+    return baro;
   };
   
   // The method returns the device identifier
