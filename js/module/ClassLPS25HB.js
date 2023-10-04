@@ -41,7 +41,7 @@ class ClassLPS25HB extends ClassMiddleSensor {
             this._interval = setInterval(() => {
                 if (this._usedChannels.includes(0)) this.Ch0_Value = this._sensor.temp();
                 if (this._usedChannels.includes(1)) this.Ch1_Value = this._sensor.pressure();
-                if (this._usedChannels.includes(2)) this.Ch2_Value = this._sensor.altitude(this.Ch1_Value * 1000);
+                if (this._usedChannels.includes(2)) this.Ch2_Value = this.Ch1_Value * 1000;
             });
         }     
         this._currentPeriod = period;

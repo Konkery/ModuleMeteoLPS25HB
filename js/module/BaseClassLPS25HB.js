@@ -62,44 +62,6 @@ var Barometer = function(opts) {
 
     return temp;
   };
-
-  // Altitude
-  Barometer.prototype.altitude = function(pressurePa) {
-    var idx = 0;
-    for (idx = 0; idx < 5; idx++) {
-        if ((pressurePa <= this.getGOSTData(idx).press)
-            && (pressurePa > this.getGOSTData(idx + 1).press))
-            break;
-    }
-    var table = this.getGOSTData(idx);
-    var Ps = table[idx].press;
-    var Bm = table[idx].t_grad;
-    var Tm = table[idx].temp;
-    var Hb = table[idx].alt;
-    var geopotH = 0;
-
-    if (Bm != 0.0) {
-        geopotH
-            = ((Tm * pow(Ps / pressurePa, Bm * 287.05287 / 9.80665) - Tm)
-              / Bm);
-    } else {
-        geopotH = log10(Ps / pressurePa) * (287.05287 * Tm)
-                  / (9.80665 * 0.434294);
-    }
-
-    var altitude = Hb + geopotH;
-
-    return altitude * 6356766 / (6356766 + altitude);
-  };
-
-  Barometer.prototype.getGOSTData = function(idx) {
-    var ag_table = [
-      { press:0, t_grad:288.15, temp:-0.0065, alt:101325.00 },  { press:11000, t_grad:216.65, temp:0.0, alt:22632.04 },
-      { press:20000, t_grad:216.65, temp:0.0010, alt:5474.87 }, { press:32000, t_grad:228.65, temp:0.0028, alt:868.0146 },
-      { press:47000, t_grad:270.65, temp:0.0, alt:110.9056 },   { press:51000, t_grad:270.65, temp:-0.0028, alt:6.69384 }
-    ];
-    return ag_table[idx];
-  }
   
   // Exporting the class
   exports.connect = function(opts) {
