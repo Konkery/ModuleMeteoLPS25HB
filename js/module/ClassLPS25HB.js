@@ -13,7 +13,7 @@ class ClassLPS25HB extends ClassMiddleSensor {
         ClassMiddleSensor.apply(this, [_opts, _sensor_props]);
         this._name = 'BaseClassLPS25HB'; //переопределяем имя типа
 		this._sensor = require("BaseClassLPS25HB").connect({i2c: _opts.bus, address: _opts.address});
-        this._minPeriod = 140;
+        this._minPeriod = 125;
         this._usedChannels = [];
         this._interval;
         this._calPressure;
