@@ -26,7 +26,7 @@ class ClassLPS25HB extends ClassMiddleSensor {
     Init(_sensor_props) {
         super.Init(_sensor_props);
         this._sensor.init();
-        SetDefaultPressure (this._sensor.pressure());
+        this.SetDefaultPressure (this._sensor.pressure());
     }
     /**
      * @method
