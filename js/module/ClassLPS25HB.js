@@ -26,7 +26,7 @@ class ClassLPS25HB extends ClassMiddleSensor {
     Init(_sensor_props) {
         super.Init(_sensor_props);
         this._sensor.init();
-        this._calPressure = this._sensor.pressure() * 10;
+        this._calPressure = this._sensor.pressure() * 7.501;
     }
     /**
      * @method
@@ -43,7 +43,7 @@ class ClassLPS25HB extends ClassMiddleSensor {
             this._interval = setInterval(() => {
                 if (this._usedChannels.includes(0)) this.Ch0_Value = this._sensor.temp();
                 if (this._usedChannels.includes(1)) this.Ch1_Value = this._sensor.pressure();
-                if (this._usedChannels.includes(2)) this.Ch2_Value = (1 - Math.pow(((this.Ch1_Value * 10) / this._calPressure), 0.190263)) * 44330.8;
+                if (this._usedChannels.includes(2)) this.Ch2_Value = (this._calPressure - (this.Ch1_Value * 7.501)) * 10.5;
             });
         }     
         this._currentPeriod = period;
