@@ -13,7 +13,7 @@ class ClassLPS25HB extends ClassMiddleSensor {
         ClassMiddleSensor.apply(this, [_opts, _sensor_props]);
         this._name = 'BaseClassLPS25HB'; //переопределяем имя типа
 		this._sensor = require("BaseClassLPS25HB").connect({i2c: _opts.bus, address: _opts.address});
-        this._minPeriod = 1000;
+        this._minPeriod = 140;
         this._usedChannels = [];
         this._interval;
         this._calPressure;
@@ -26,7 +26,7 @@ class ClassLPS25HB extends ClassMiddleSensor {
     Init(_sensor_props) {
         super.Init(_sensor_props);
         this._sensor.init();
-        this._calPressure = this._sensor.pressure() * 7.501;
+        SetDefaultPressure (this._sensor.pressure());
     }
     /**
      * @method
@@ -49,6 +49,10 @@ class ClassLPS25HB extends ClassMiddleSensor {
         this._currentPeriod = period;
     }
 
+    SetDefaultPressure(pressure)
+    {
+        this._calPressure = pressure * 7.501;
+    }
     /**
      * @method
      * Меняет частоту опроса датчика
@@ -58,7 +62,6 @@ class ClassLPS25HB extends ClassMiddleSensor {
         clearInterval(this._interval);
         setTimeout(() => this.Start(freq), this._minfrequency);
     }
-
     /**
      * @methhod
      * Останавливает сбор данных с датчика
