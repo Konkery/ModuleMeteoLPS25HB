@@ -35,7 +35,7 @@ var Barometer = function(opts) {
   // Pressure
   Barometer.prototype.pressure = function() {
     var data = this.readI2C(0x28, 3);
-    var ret;
+    var ret = {};
     ret.baro = (data[1] << 8) | (data[2] << 16) || data[0];
     if (ret.baro > 2147483647) {
       ret.baro -= 0xffffffff;
