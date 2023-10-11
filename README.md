@@ -11,7 +11,7 @@
 # Описание
 <div style = "font-family: 'Open Sans', sans-serif; font-size: 16px; color: #555">
 
-Модуль предназначен для работы с метеодатчиком на базе чипа [LPS25HB](https://github.com/AlexGlgr/ModuleMeteoLPS25HB/blob/fork-Alexander/res/LPS331AP_STMicroelectronics.pdf). Модуль является неотъемлемой частью фреймворка EcoLite. Датчик на базе чипа LPS25HB позволяет получить данные о температуре, атмосферном давлении и относительной высоте. Модуль работает по интерфейсу I2C. Модуль имеет следующие архитектурные решения фреймворка EcoLite:
+Модуль предназначен для работы с метеодатчиком на базе чипа [LPS25HB](https://github.com/AlexGlgr/ModuleMeteoLPS25HB/blob/fork-Alexander/res/lps25hb.pdf). Модуль является неотъемлемой частью фреймворка EcoLite. Датчик на базе чипа LPS25HB позволяет получить данные о температуре, атмосферном давлении и относительной высоте. Модуль работает по интерфейсу I2C. Модуль имеет следующие архитектурные решения фреймворка EcoLite:
 - является потомком класса [ClassMiddleSensor](https://github.com/Nicktonious/ModuleSensorArchitecture/blob/main/README.md);
 - создаёт шину через глобальный объект [I2Cbus](https://github.com/AlexGlgr/ModuleBaseI2CBus/blob/fork-Alexander/README.md);
 - при проверке валидности данных использует ошибку класса [Error](https://github.com/Konkery/ModuleAppError/blob/main/README.md);
@@ -19,7 +19,7 @@
  
  Количество каналов для снятия данных - 3. Типовая погрешность измерений датчика: 10 Pa для давления (см. документацию).
 
-### **Конструктор**
+### Конструктор
 Конструктор принимает один объект типа **SensorOptsType** и один объект типа [**SensorOptsType**](https://github.com/Nicktonious/ModuleSensorArchitecture/blob/main/README.md).
 ```js
 let _sensor_props = {
@@ -40,7 +40,7 @@ sensor = new LPS25HDClass (_opts, _sensor_props)
 - <mark style="background-color: lightblue">bus</mark> - объект класса I2C, возвращаемый диспетчером I2C шин - [I2Cbus](https://github.com/AlexGlgr/ModuleBaseI2CBus/blob/fork-Alexander/README.md);
 - <mark style="background-color: lightblue">address</mark> - адрес датчика на шине;
 
-### **Поля**
+### Поля
 - <mark style="background-color: lightblue">_name</mark> - имя класса в строковом виде;
 - <mark style="background-color: lightblue">_sensor</mark> - объект базового класса;
 - <mark style="background-color: lightblue">_minPeriod</mark> - минимальная частота опроса датчика - 1000 мс;
@@ -48,20 +48,20 @@ sensor = new LPS25HDClass (_opts, _sensor_props)
 - <mark style="background-color: lightblue">_calPressure</mark> - установленное атмосферное давление на нуле метров над уровнем моря;
 - <mark style="background-color: lightblue">_interval</mark> - функция SetInterval для опроса датчика.
 
-### **Методы**
+### Методы
 - <mark style="background-color: lightblue">Init(_sensor_props)</mark> - необходим для первоначальной настройки датчика;
 - <mark style="background-color: lightblue">Start(_num_channel, _period)</mark> - запускает циклический опрос заданного канала датчика. Переданное значение периода сверяется с минимальным значением хранящимся в поле *_minPeriod* и, если требуется, регулируется;
 - <mark style="background-color: lightblue">SetDefaultPressure(pressure)</mark> - устанавливает значение поля _calPressure;
 - <mark style="background-color: lightblue">ChangeFreq(_num_channel, _period)</mark> - останавливает опрос заданного канала и запускает его вновь с уже новой частотой;
 - <mark style="background-color: lightblue">Stop(_num_channel)</mark> - прекращает считывание значений с заданного канала.
 
-### **Возвращаемые данные**
+### Возвращаемые данные
 Модуль предоставляет данные об атмосферном давлении в **килопаскалях**. Для перевода этих значений в другие метрики можно воспользоваться следующим формулам:
 - В мм рт ст: p = p0 * 7,501;
 - В Бары: p = p0 / 100;
 
 
-### **Примеры**
+### Примеры
 Фрагмент кода для вывода данных о давлении и температуре в консоль раз в одну секунду. Предполагается, что все необходимые модули уже загружены в систему:
 ```js
 //Подключение необходимых модулей
@@ -120,4 +120,9 @@ setInterval(() => {
 <p align="left">
   <img src="./res/output.png" title="hover text">
 </p>
+
+# Зависимости
+- <mark style="background-color: lightblue">[**ClassBaseI2CBus**](https://github.com/AlexGlgr/ModuleBaseI2CBus/blob/fork-Alexander/README.md)</mark>
+- <mark style="background-color: lightblue">[**ModuleAppError**](https://github.com/Konkery/ModuleAppError/blob/main/README.md)</mark>
+- <mark style="background-color: lightblue">[**ModuleAppMath**](https://github.com/Konkery/ModuleAppMath/blob/main/README.md)</mark>
 </div>
