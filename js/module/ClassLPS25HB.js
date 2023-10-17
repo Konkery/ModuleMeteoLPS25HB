@@ -1,4 +1,4 @@
-const ClassMiddleSensor = require("ClassSensorArchitecture");
+const ClassMiddleSensor = require('ClassSensorArchitecture');
 /**
  * @class
  * Модуль реализует базовые функции метеодатчика на базе чипа LPS25HB,
@@ -11,12 +11,12 @@ class ClassLPS25HB extends ClassMiddleSensor {
      */
     constructor(_opts, _sensor_props) {
         ClassMiddleSensor.apply(this, [_opts, _sensor_props]);
-        this._name = 'BaseClassLPS25HB'; //переопределяем имя типа
-		this._sensor = require("BaseClassLPS25HB").connect({i2c: _opts.bus, address: _opts.address});
-        this._minPeriod = 125;
-        this._usedChannels = [];
-        this._interval;
-        this._calPressure;
+        this._Name = 'BaseClassLPS25HB'; //переопределяем имя типа
+		this._Sensor = require('BaseClassLPS25HB').connect({i2c: _opts.bus, address: _opts.address});
+        this._MinPeriod = 125;
+        this._UsedChannels = [];
+        this._Interval;
+        this._CalPressure;
         this.Init(_sensor_props);
     }
     /**
@@ -25,8 +25,8 @@ class ClassLPS25HB extends ClassMiddleSensor {
      */
     Init(_sensor_props) {
         super.Init(_sensor_props);
-        this._sensor.init();
-        this.SetDefaultPressure (this._sensor.pressure());
+        this._Sensor.init();
+        this.SetDefaultPressure (this._Sensor.pressure());
     }
     /**
      * @method
@@ -35,15 +35,15 @@ class ClassLPS25HB extends ClassMiddleSensor {
      * @param {Number} _num_channel     - номер канала
      */
     Start(_num_channel, _period) {
-        let period = (typeof _period === 'number' & _period >= this._minPeriod) ? _period    //частота сверяется с минимальной
-                 : this._minPeriod;
+        let period = (typeof _period === 'number' & _period >= this._MinPeriod) ? _period    //частота сверяется с минимальной
+                 : this._MinPeriod;
 
-        if (!this._usedChannels.includes(_num_channel)) this._usedChannels.push(_num_channel); //номер канала попадает в список опрашиваемых каналов. Если интервал уже запущен с таким же периодои, то даже нет нужды его перезапускать 
-        if (!this._interval) {          //если в данный момент не ведется ни одного опроса
-            this._interval = setInterval(() => {
-                if (this._usedChannels.includes(0)) this.Ch0_Value = this._sensor.temp();
-                if (this._usedChannels.includes(1)) this.Ch1_Value = this._sensor.pressure();
-                if (this._usedChannels.includes(2)) this.Ch2_Value = (this._calPressure - (this.Ch1_Value * 7.501)) * 10.5;
+        if (!this._UsedChannels.includes(_num_channel)) this._UsedChannels.push(_num_channel); //номер канала попадает в список опрашиваемых каналов. Если интервал уже запущен с таким же периодои, то даже нет нужды его перезапускать 
+        if (!this._Interval) {          //если в данный момент не ведется ни одного опроса
+            this._Interval = setInterval(() => {
+                if (this._UsedChannels.includes(0)) this.Ch0_Value = this._Sensor.temp();
+                if (this._UsedChannels.includes(1)) this.Ch1_Value = this._Sensor.pressure();
+                if (this._UsedChannels.includes(2)) this.Ch2_Value = (this._CalPressure - (this.Ch1_Value * 7.501)) * 10.5;
             });
         }     
         this._currentPeriod = period;
@@ -51,7 +51,7 @@ class ClassLPS25HB extends ClassMiddleSensor {
 
     SetDefaultPressure(pressure)
     {
-        this._calPressure = pressure * 7.501;
+        this._CalPressure = pressure * 7.501;
     }
     /**
      * @method
@@ -59,8 +59,8 @@ class ClassLPS25HB extends ClassMiddleSensor {
      * @param {Number} freq     - новая частота опроса (минимум 1000 мс)
      */
     ChangeFreq(_num_channel, freq) {
-        clearInterval(this._interval);
-        setTimeout(() => this.Start(freq), this._minfrequency);
+        clearInterval(this._Interval);
+        setTimeout(() => this.Start(freq), this._Minfrequency);
     }
     /**
      * @methhod
@@ -68,11 +68,11 @@ class ClassLPS25HB extends ClassMiddleSensor {
      * @param {Number} _num_channel   - номер канала, в который должен быть остановлен поток данных
      */
     Stop(_num_channel) {
-        if (_num_channel) this._usedChannels.splice(this._usedChannels.indexOf(_num_channel));
+        if (_num_channel) this._UsedChannels.splice(this._UsedChannels.indexOf(_num_channel));
         else {
-            this._usedChannels = [];
-            clearInterval(this._interval);
-            this._interval = null;
+            this._UsedChannels = [];
+            clearInterval(this._Interval);
+            this._Interval = null;
         }
     }
 }

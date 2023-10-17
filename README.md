@@ -47,12 +47,12 @@ sensor = new LPS25HDClass (_opts, _sensor_props)
 ### Поля
 <div style = "color: #555">
 
-- <mark style="background-color: lightblue">_name</mark> - имя класса в строковом виде;
-- <mark style="background-color: lightblue">_sensor</mark> - объект базового класса;
-- <mark style="background-color: lightblue">_minPeriod</mark> - минимальная частота опроса датчика - 1000 мс;
-- <mark style="background-color: lightblue">_usedChannels</mark> - используемые каналы данных по нотации архитектуры фреймворка EcoLite;
-- <mark style="background-color: lightblue">_calPressure</mark> - установленное атмосферное давление на нуле метров над уровнем моря;
-- <mark style="background-color: lightblue">_interval</mark> - функция SetInterval для опроса датчика.
+- <mark style="background-color: lightblue">_Name</mark> - имя класса в строковом виде;
+- <mark style="background-color: lightblue">_Sensor</mark> - объект базового класса;
+- <mark style="background-color: lightblue">_MinPeriod</mark> - минимальная частота опроса датчика - 1000 мс;
+- <mark style="background-color: lightblue">_UsedChannels</mark> - используемые каналы данных по нотации архитектуры фреймворка EcoLite;
+- <mark style="background-color: lightblue">_CalPressure</mark> - установленное атмосферное давление на нуле метров над уровнем моря;
+- <mark style="background-color: lightblue">_Interval</mark> - функция SetInterval для опроса датчика.
 </div>
 
 ### Методы
