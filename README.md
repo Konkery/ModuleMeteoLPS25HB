@@ -15,7 +15,7 @@
 
 Модуль предназначен для работы с метеодатчиком на базе чипа [LPS25HB](https://github.com/Konkery/ModuleMeteoLPS25HB/blob/main/res/lps25hb.pdf). Модуль является неотъемлемой частью фреймворка EcoLite. Датчик на базе чипа LPS25HB позволяет получить данные о температуре, атмосферном давлении и относительной высоте. Модуль работает по интерфейсу I2C. Модуль имеет следующие архитектурные решения фреймворка EcoLite:
 - является потомком класса [ClassMiddleSensor](https://github.com/Konkery/ModuleSensorArchitecture/blob/main/README.md);
-- создаёт шину через глобальный объект [I2Cbus](https://github.com/Konkery/ModuleBaseI2CBus/blob/main/README.md).
+- использует шину через глобальный объект [I2Cbus](https://github.com/Konkery/ModuleBaseI2CBus/blob/main/README.md).
  
 Количество каналов для снятия данных - 3. Типовая погрешность измерений датчика: 10 Pa для давления (см. документацию).
 </div>

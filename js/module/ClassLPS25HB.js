@@ -45,8 +45,7 @@ class ClassLPS25HB extends ClassMiddleSensor {
                 if (this._UsedChannels.includes(1)) this.Ch1_Value = this._Sensor.pressure();
                 if (this._UsedChannels.includes(2)) this.Ch2_Value = (this._CalPressure - (this.Ch1_Value * 7.501)) * 10.5;
             });
-        }     
-        this._currentPeriod = period;
+        }
     }
 
     SetDefaultPressure(pressure)
