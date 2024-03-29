@@ -1,18 +1,17 @@
-const ClassMiddleSensor = require('ClassSensorArchitecture');
 /**
  * @class
  * Модуль реализует базовые функции метеодатчика на базе чипа LPS25HB,
  * возращающего данные о температуре и атмосферном давлении
  */
-class ClassLPS25HB extends ClassMiddleSensor {
+class ClassLPS25HB extends ClassSensor {
     /**
      * @constructor
-     * @param {Object} _opts   - Объект с параметрами по нотации ClassMiddleSensor
+     * @param {Object} _opts   - Объект с параметрами по нотации ClassSensor
      */
     constructor(_opts, _sensor_props) {
-        ClassMiddleSensor.apply(this, [_opts, _sensor_props]);
+        ClassSensor.apply(this, [_opts, _sensor_props]);
         this._Name = 'BaseClassLPS25HB'; //переопределяем имя типа
-		this._Sensor = require('BaseClassLPS25HB').connect({i2c: _opts.bus, address: _opts.address});
+		this._Sensor = require('BaseClassLPS25HB.min.js').connect({i2c: _opts.bus, address: _opts.address});
         this._MinPeriod = 125;
         this._UsedChannels = [];
         this._Interval;
